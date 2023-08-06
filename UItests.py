@@ -97,6 +97,7 @@ film_link.click()
 
 # проверка наличия заголовка
 
+time.sleep(0.5)
 page_source = driver.page_source
 expected_title = "12 стульев (1971)"
 if expected_title in page_source:
