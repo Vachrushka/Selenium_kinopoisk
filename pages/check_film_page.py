@@ -40,6 +40,10 @@ class CheckFilmPage(BasePage):
         time.sleep(1)
         name_actor_input.send_keys(Keys.ARROW_DOWN)
 
+        wait = self.getWait(5)
+        wait.until(EC.presence_of_element_located(Locators.FILM_COUNT_A))
+
+
     def click_filtered_find(self):
         # кнопка поиска при фильтрации
         self.driver.find_element(*Locators.SEARCH_BUTTON).click()
