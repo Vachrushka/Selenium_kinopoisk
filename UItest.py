@@ -17,7 +17,7 @@ driver = webdriver.Chrome()
 driver.get(url)
 
 # клик по кнопке
-xpath = f"//*[@aria-label='Расширенный поиск']"
+xpath = "//*[@aria-label='Расширенный поиск']"
 btn_find = driver.find_element(By.XPATH, xpath)
 btn_find.click()
 

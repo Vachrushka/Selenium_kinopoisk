@@ -1,0 +1,15 @@
+{
+  "browser": "chrome",
+  "browser_options": {
+    "driver_path": "C\\Program files\\Google",
+    "args": ["--disable-infobars", "--start-maximized"]
+  },
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "headless": true,
+  "implicitly_wait": 10,
+  "page_load_timeout": 30,
+  "element_locate_timeout": 10
+}
