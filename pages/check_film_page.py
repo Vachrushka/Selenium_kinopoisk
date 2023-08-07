@@ -7,6 +7,7 @@ from pages.frome_pages_locators import FromPagesLocators as Locators
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class CheckFilmPage(BasePage):
 
     def select_option_by_value(self, select_locator, option_text):
@@ -43,7 +44,6 @@ class CheckFilmPage(BasePage):
         wait = self.getWait(5)
         wait.until(EC.presence_of_element_located(Locators.FILM_COUNT_A))
 
-
     def click_filtered_find(self):
         # кнопка поиска при фильтрации
         self.driver.find_element(*Locators.SEARCH_BUTTON).click()
@@ -76,10 +76,12 @@ class CheckFilmPage(BasePage):
         else:
             print("Время 153 мин")
 
-        film_link = info_div.find_element(*Locators.FILM_LINK)
-        if not film_link.is_displayed():
+        try:
+            film_link = info_div.find_element(*Locators.FILM_LINK)
+        except Exception:
             raise ValueError("Название-ссылка не найдено")
-        print("Название-ссылка присутствует")
+        else:
+            print("Название-ссылка присутствует")
 
         # переход на карточку фильма
         film_link.click()

@@ -11,6 +11,7 @@ class FromPagesLocators:
     CREATOR_2_SELECTOR = (By.ID, "cr_search_field_2_select")
     ACTOR_NAME_INPUT = (By.ID, "cr_search_field_1")
     DIRECTOR_NAME_INPUT = (By.ID, "cr_search_field_2")
+    INPUT_RESULT_SPAN = (By.XPATH, '//*[@id="ui-id-555"]/span')
     FILM_COUNT_A = (By.XPATH, "//a[contains(text(), '1 фильм')]")
     SEARCH_BUTTON = (By.ID, "btn_search_6")
     NAVIGATOR_DIV = (By.XPATH, '//*[@class="navigator"]/div')

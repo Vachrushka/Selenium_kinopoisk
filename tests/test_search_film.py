@@ -35,7 +35,7 @@ class TestSearchFilm:
 
     @allure.feature('Проверка поиска фильмов, вторая часть')
     @allure.story('Поиск лучших фильмов')
-    def test_search_best(self, driver):
+    def test_best_search(self, driver):
         url = "https://www.kinopoisk.ru"
         check_film_page = CheckFilmPage(driver, url)
         allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
