@@ -17,16 +17,21 @@ class TestSearchFilm:
 
         with allure.step('Переходим на страницу расширенного поиска'):
             allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-            check_film_page.click_wide_find()
+            #check_film_page.click_wide_find()
+            check_film_page.init_elements_step_one()
+            check_film_page.FIND_BUTTON.click()
 
         with allure.step('Вводим данные фильтра'):
             allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            check_film_page.init_elements_step_two()
             check_film_page.setup_filter()
             allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-            check_film_page.click_filtered_find()
+            #check_film_page.click_filtered_find()
+            check_film_page.SEARCH_BUTTON.click()
 
         with allure.step('Проверка результата и полей карточки'):
             allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            #check_film_page.init_elements_step_three()
             check_film_page.check_card_fields()
 
         with allure.step('Проверка страницы фильма'):

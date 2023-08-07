@@ -1,6 +1,8 @@
 import time
+from collections import defaultdict
 
 from selenium.webdriver import Keys
+from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
 from pages.frome_pages_locators import FromPagesLocators as Locators
@@ -10,8 +12,79 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class CheckFilmPage(BasePage):
 
+    def __init__(self, driver, url):
+        super().__init__(driver, url)
+        self.DIRECTOR_VALUE_A = None
+        self.COUNTRY_VALUE_A = None
+        self.DIRECTOR_DIV = None
+        self.GENRE_DIV = None
+        self.COUNTRY_DIV = None
+        self.FILM_LINK = None
+        self.DURATION_SPAN = None
+        self.GENRE_VALUE_A = None
+        self.INFO_DIV = None
+        self.YEAR_SPAN = None
+        self.ELEMENTS_DIV = None
+        self.NAVIGATOR_DIV = None
+        self.CREATOR_2_SELECTOR = None
+        self.CREATOR_SELECTOR = None
+        self.ACTOR_NAME_INPUT = None
+        self.DIRECTOR_NAME_INPUT = None
+        self.INPUT_RESULT_SPAN = None
+        self.FILM_COUNT_A = None
+        self.GENRE_SELECTOR = None
+        self.NAME_INPUT = None
+        self.COUNTRY_SELECTOR = None
+        self.SEARCH_BUTTON = None
+        self.FIND_BUTTON = None
+
+    def find(self, element):
+        return self.driver.find_element(*element)
+
+    def init_elements_step_one(self):
+        # 1
+        self.FIND_BUTTON = self.find((By.XPATH, "//*[@aria-label='Расширенный поиск']"))
+
+    def init_elements_step_two(self):
+        # 2
+        self.NAME_INPUT = self.find((By.ID, "find_film"))
+        self.COUNTRY_SELECTOR = self.find((By.ID, "country"))
+        self.GENRE_SELECTOR = self.find((By.ID, "m_act[genre]"))
+        self.CREATOR_SELECTOR = self.find((By.ID, "cr_search_field_1_select"))
+        self.CREATOR_2_SELECTOR = self.find((By.ID, "cr_search_field_2_select"))
+        self.ACTOR_NAME_INPUT = self.find((By.ID, "cr_search_field_1"))
+        self.DIRECTOR_NAME_INPUT = self.find((By.ID, "cr_search_field_2"))
+        self.SEARCH_BUTTON = (By.ID, "btn_search_6")
+
+    def init_elements_step_three(self):
+        # 3
+        self.NAVIGATOR_DIV = (By.XPATH, '//*[@class="navigator"]/div')
+        self.ELEMENTS_DIV = (By.CSS_SELECTOR, "div.element")
+        self.YEAR_SPAN = (By.CSS_SELECTOR, "span.year")
+        self.INFO_DIV = (By.CSS_SELECTOR, "div.info")
+        self.DURATION_SPAN = (By.XPATH, "//span[contains(text(), '153 мин')]")
+        self.FILM_LINK = (By.LINK_TEXT, "12 стульев")
+        self.COUNTRY_DIV = (By.XPATH, "//div/div[contains(text(), 'Страна')]")
+        self.COUNTRY_VALUE_A = (By.XPATH, "//a[contains(text(), 'СССР')]")
+        self.DIRECTOR_DIV = (By.XPATH, "//div/div[contains(text(), 'Режиссер')]")
+        self.DIRECTOR_VALUE_A = (By.XPATH, "//a[contains(text(), 'Леонид Гайдай')]")
+        self.GENRE_DIV = (By.XPATH, "//div/div[contains(text(), 'Жанр')]")
+        self.GENRE_VALUE_A = (By.TAG_NAME, "a")
+
+    # second test
+    BEST_BUTTON = (By.XPATH, '//h1/a')
+    LABEL_H1 = (By.XPATH, "//td/h1[contains(text(), 'Навигатор по лучшим фильмам')]")
+    GENRE_LIST = (By.ID, "genreListTitle")
+    GENRE_UL = (By.TAG_NAME, "ul")
+    FIRST_GENRE_LABEL = (By.XPATH, "//li/label[contains(text(), 'аниме')]")
+    SECOND_GENRE_LABEL = (By.XPATH, "//li/label[contains(text(), 'для взрослых')]")
+    FINDER_BUTTON = (By.CSS_SELECTOR, "input.nice_button")
+    FLOAT_NAVIGATOR_DIV = (By.XPATH, '//div[@class="navigator"]/div')
+    FILMS_DIV = (By.ID, "itemList")
+    CHILDS_DIV = (By.XPATH, "./div")
+
     def select_option_by_value(self, select_locator, option_text):
-        select = Select(self.driver.find_element(*select_locator))
+        select = Select(select_locator)
         select.select_by_visible_text(option_text)
 
     def click_wide_find(self):
@@ -19,27 +92,25 @@ class CheckFilmPage(BasePage):
 
     def setup_filter(self):
         # выбор имени
-        self.driver.find_element(*Locators.NAME_INPUT).send_keys("12")
+        self.NAME_INPUT.send_keys("12")
         # выбор страны
-        self.select_option_by_value(Locators.COUNTRY_SELECTOR, "СССР")
+        self.select_option_by_value(self.COUNTRY_SELECTOR, "СССР")
         # выбор жанра
-        self.select_option_by_value(Locators.GENRE_SELECTOR, "комедия")
-        self.select_option_by_value(Locators.GENRE_SELECTOR, "приключения")
+        self.select_option_by_value(self.GENRE_SELECTOR, "комедия")
+        self.select_option_by_value(self.GENRE_SELECTOR, "приключения")
         # выбор создателей
-        self.select_option_by_value(Locators.CREATOR_SELECTOR, "Актер")
-        self.select_option_by_value(Locators.CREATOR_2_SELECTOR, "Режиссер")
+        self.select_option_by_value(self.CREATOR_SELECTOR, "Актер")
+        self.select_option_by_value(self.CREATOR_2_SELECTOR, "Режиссер")
         # ввод имен
-        name_actor_input = self.driver.find_element(*Locators.ACTOR_NAME_INPUT)
-        name_actor_input.send_keys("Арчил Гомиашвили")
-        name_actor_input.send_keys(Keys.ARROW_DOWN)
+        self.ACTOR_NAME_INPUT.send_keys("Арчил Гомиашвили")
+        self.ACTOR_NAME_INPUT.send_keys(Keys.ARROW_DOWN)
         time.sleep(1)
-        name_actor_input.send_keys(Keys.ARROW_DOWN)
+        self.ACTOR_NAME_INPUT.send_keys(Keys.ARROW_DOWN)
 
-        name_actor_input = self.driver.find_element(*Locators.DIRECTOR_NAME_INPUT)
-        name_actor_input.send_keys("Леонид Гайдай")
-        name_actor_input.send_keys(Keys.ARROW_DOWN)
+        self.DIRECTOR_NAME_INPUT.send_keys("Леонид Гайдай")
+        self.DIRECTOR_NAME_INPUT.send_keys(Keys.ARROW_DOWN)
         time.sleep(1)
-        name_actor_input.send_keys(Keys.ARROW_DOWN)
+        self.DIRECTOR_NAME_INPUT.send_keys(Keys.ARROW_DOWN)
 
         wait = self.getWait(5)
         wait.until(EC.presence_of_element_located(Locators.FILM_COUNT_A))
@@ -50,12 +121,12 @@ class CheckFilmPage(BasePage):
 
     def check_card_fields(self):
         # проверка результата поиска
-        text_result = self.driver.find_element(*Locators.NAVIGATOR_DIV).text
+        text_result = self.NAVIGATOR_DIV.text
         if text_result != "1—1 из 1":
             raise ValueError("Неверный результат поиска, {0}".format(text_result))
         print("Результат поиска 1—1 из 1")
 
-        elements_with_class_element = self.driver.find_elements(*Locators.ELEMENTS_DIV)
+        elements_with_class_element = self.ELEMENTS_DIV
         if len(elements_with_class_element) != 1:
             raise ValueError("Неверный результат поиска, {0}".format(len(elements_with_class_element)))
         print("Найдена одна карточка")
@@ -63,7 +134,7 @@ class CheckFilmPage(BasePage):
         #  div для проверки
         film_card_div = elements_with_class_element[0]
 
-        year_span = film_card_div.find_element(*Locators.YEAR_SPAN)
+        year_span = self.YEAR_SPAN
         if year_span.text != "1971":
             raise ValueError("Неверный год")
         print("Год 1971")

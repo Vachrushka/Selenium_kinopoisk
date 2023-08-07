@@ -3,17 +3,20 @@ from selenium.webdriver.common.by import By
 
 class FromPagesLocators:
     # first test
-    FIND_BUTTON = (By.XPATH, "//*[@aria-label='Расширенный поиск']")
-    NAME_INPUT = (By.ID, "find_film")
-    COUNTRY_SELECTOR = (By.ID, "country")
-    GENRE_SELECTOR = (By.ID, "m_act[genre]")
-    CREATOR_SELECTOR = (By.ID, "cr_search_field_1_select")
-    CREATOR_2_SELECTOR = (By.ID, "cr_search_field_2_select")
-    ACTOR_NAME_INPUT = (By.ID, "cr_search_field_1")
-    DIRECTOR_NAME_INPUT = (By.ID, "cr_search_field_2")
-    INPUT_RESULT_SPAN = (By.XPATH, '//*[@id="ui-id-555"]/span')
+    #1
+    # FIND_BUTTON = (By.XPATH, "//*[@aria-label='Расширенный поиск']")
+    #2
+    # NAME_INPUT = (By.ID, "find_film")
+    # COUNTRY_SELECTOR = (By.ID, "country")
+    # GENRE_SELECTOR = (By.ID, "m_act[genre]")
+    # CREATOR_SELECTOR = (By.ID, "cr_search_field_1_select")
+    # CREATOR_2_SELECTOR = (By.ID, "cr_search_field_2_select")
+    # ACTOR_NAME_INPUT = (By.ID, "cr_search_field_1")
+    # DIRECTOR_NAME_INPUT = (By.ID, "cr_search_field_2")
+    # INPUT_RESULT_SPAN = (By.XPATH, '//*[@id="ui-id-555"]/span')
     FILM_COUNT_A = (By.XPATH, "//a[contains(text(), '1 фильм')]")
     SEARCH_BUTTON = (By.ID, "btn_search_6")
+    #3
     NAVIGATOR_DIV = (By.XPATH, '//*[@class="navigator"]/div')
     ELEMENTS_DIV = (By.CSS_SELECTOR, "div.element")
     YEAR_SPAN = (By.CSS_SELECTOR, "span.year")
