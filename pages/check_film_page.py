@@ -5,7 +5,7 @@ from selenium.webdriver import Keys
 from pages.base_page import BasePage
 from pages.frome_pages_locators import FromPagesLocators as Locators
 from selenium.webdriver.support.ui import Select
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class CheckFilmPage(BasePage):
 
@@ -122,3 +122,49 @@ class CheckFilmPage(BasePage):
             print("Все жанры верны")
         else:
             raise ValueError("Не все жанры верны")
+
+    def click_best_film_page(self):
+        # клик по кнопке поиск лучших фильмов
+        self.driver.find_element(*Locators.BEST_BUTTON).click()
+
+    def check_navigate_best_films(self):
+        wait = self.getWait(2)
+        element = wait.until(EC.presence_of_element_located(Locators.LABEL_H1))
+        if element is None:
+            raise ValueError("Заголовок не найден")
+        else:
+            print("Заголовок найден")
+
+        genre_list = self.driver.find_element(*Locators.GENRE_LIST)
+        genre_list.click()
+        ul_element = genre_list.parent.find_element(*Locators.GENRE_UL)
+
+        # выбор жанров
+        first_genre = ul_element.find_element(*Locators.FIRST_GENRE_LABEL)
+        first_genre.click()
+        sec_genre = ul_element.find_element(*Locators.SECOND_GENRE_LABEL)
+        sec_genre.click()
+
+    def click_find_best_button(self):
+        # клик показать фильмы
+        # wait = self.getWait(2) # не работает
+        # wait.until(EC.presence_of_element_located(Locators.FINDER_BUTTON)).click()
+        time.sleep(2)
+        self.driver.find_element(*Locators.FINDER_BUTTON).click()
+
+    def check_finded_best_films(self):
+        # проверка результата
+        wait = self.getWait(5)
+        navigator_div = wait.until(EC.presence_of_element_located(Locators.FLOAT_NAVIGATOR_DIV))
+        text_result = navigator_div.text
+        if text_result != "1—4 из 4":
+            raise ValueError("Неверный результат поиска, {0}".format(text_result))
+        print("Результат поиска 1—4 из 4")
+
+        div_with_films = self.driver.find_element(*Locators.FILMS_DIV)
+        child_divs = div_with_films.find_elements(*Locators.CHILDS_DIV)
+
+        if len(child_divs) == 4:
+            print("Выбрано 4 фильма")
+        else:
+            raise ValueError("Неверный результат поиска, {0} фильма, вместо 4".format(len(child_divs)))

@@ -33,13 +33,31 @@ class TestSearchFilm:
             allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
             check_film_page.check_page_fields()
 
+    @allure.feature('Проверка поиска фильмов, вторая часть')
+    @allure.story('Поиск лучших фильмов')
+    def test_search_best(self, driver):
+        url = "https://www.kinopoisk.ru"
+        check_film_page = CheckFilmPage(driver, url)
+        allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+        check_film_page.open()
 
-    # @allure.feature('Проверка поиска фильмов, вторая часть')
-    # @allure.story('Поиск лучших фильмов')
-    # def test_search(self, driver):
-    #
-    #     url = "https://www.kinopoisk.ru"
-    #     check_film_page = CheckFilmPage(driver, url)
-    #     allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-    #     check_film_page.open()
+        with allure.step('Переходим на страницу расширенного поиска'):
+            allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            check_film_page.click_wide_find()
+
+        with allure.step('Переходим на страницу поиска лучших фильмов'):
+            allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            check_film_page.click_best_film_page()
+
+        with allure.step('Настройка фильтра на странице поиска лучших фильмов'):
+            allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            check_film_page.check_navigate_best_films()
+            allure.attach(driver.get_screenshot_as_png(), name="Screenshot_after_actions",
+                          attachment_type=AttachmentType.PNG)
+
+        with allure.step('Проверка результата поиска'):
+            check_film_page.click_find_best_button()
+            allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
+            check_film_page.check_finded_best_films()
+
 

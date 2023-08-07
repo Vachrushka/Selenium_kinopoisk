@@ -28,10 +28,10 @@ class FromPagesLocators:
     BEST_BUTTON = (By.XPATH, '//h1/a')
     LABEL_H1 = (By.XPATH, "//td/h1[contains(text(), 'Навигатор по лучшим фильмам')]")
     GENRE_LIST = (By.ID, "genreListTitle")
+    GENRE_UL = (By.TAG_NAME, "ul")
     FIRST_GENRE_LABEL = (By.XPATH, "//li/label[contains(text(), 'аниме')]")
     SECOND_GENRE_LABEL = (By.XPATH, "//li/label[contains(text(), 'для взрослых')]")
     FINDER_BUTTON = (By.CSS_SELECTOR, "input.nice_button")
     FLOAT_NAVIGATOR_DIV = (By.XPATH, '//div[@class="navigator"]/div')
     FILMS_DIV = (By.ID, "itemList")
     CHILDS_DIV = (By.XPATH, "./div")
-
