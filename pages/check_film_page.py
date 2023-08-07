@@ -9,9 +9,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class CheckFilmPage(BasePage):
 
-    def select_option_by_value(self, select_locator, option_value):
+    def select_option_by_value(self, select_locator, option_text):
         select = Select(self.driver.find_element(*select_locator))
-        select.select_by_value(option_value)
+        select.select_by_visible_text(option_text)
 
     def click_wide_find(self):
         self.driver.find_element(*Locators.FIND_BUTTON).click()
@@ -20,13 +20,13 @@ class CheckFilmPage(BasePage):
         # выбор имени
         self.driver.find_element(*Locators.NAME_INPUT).send_keys("12")
         # выбор страны
-        self.select_option_by_value(Locators.COUNTRY_SELECTOR, "13")
+        self.select_option_by_value(Locators.COUNTRY_SELECTOR, "СССР")
         # выбор жанра
-        self.select_option_by_value(Locators.GENRE_SELECTOR, "6")
-        self.select_option_by_value(Locators.GENRE_SELECTOR, "10")
+        self.select_option_by_value(Locators.GENRE_SELECTOR, "комедия")
+        self.select_option_by_value(Locators.GENRE_SELECTOR, "приключения")
         # выбор создателей
-        self.select_option_by_value(Locators.CREATOR_SELECTOR, "actor")
-        self.select_option_by_value(Locators.CREATOR_2_SELECTOR, "director")
+        self.select_option_by_value(Locators.CREATOR_SELECTOR, "Актер")
+        self.select_option_by_value(Locators.CREATOR_2_SELECTOR, "Режиссер")
         # ввод имен
         name_actor_input = self.driver.find_element(*Locators.ACTOR_NAME_INPUT)
         name_actor_input.send_keys("Арчил Гомиашвили")
