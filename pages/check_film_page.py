@@ -54,22 +54,22 @@ class CheckFilmPage(BasePage):
         self.CREATOR_2_SELECTOR = self.find((By.ID, "cr_search_field_2_select"))
         self.ACTOR_NAME_INPUT = self.find((By.ID, "cr_search_field_1"))
         self.DIRECTOR_NAME_INPUT = self.find((By.ID, "cr_search_field_2"))
-        self.SEARCH_BUTTON = (By.ID, "btn_search_6")
+        self.SEARCH_BUTTON = self.find((By.ID, "btn_search_6"))
 
     def init_elements_step_three(self):
         # 3
-        self.NAVIGATOR_DIV = (By.XPATH, '//*[@class="navigator"]/div')
-        self.ELEMENTS_DIV = (By.CSS_SELECTOR, "div.element")
-        self.YEAR_SPAN = (By.CSS_SELECTOR, "span.year")
-        self.INFO_DIV = (By.CSS_SELECTOR, "div.info")
-        self.DURATION_SPAN = (By.XPATH, "//span[contains(text(), '153 мин')]")
-        self.FILM_LINK = (By.LINK_TEXT, "12 стульев")
-        self.COUNTRY_DIV = (By.XPATH, "//div/div[contains(text(), 'Страна')]")
-        self.COUNTRY_VALUE_A = (By.XPATH, "//a[contains(text(), 'СССР')]")
-        self.DIRECTOR_DIV = (By.XPATH, "//div/div[contains(text(), 'Режиссер')]")
-        self.DIRECTOR_VALUE_A = (By.XPATH, "//a[contains(text(), 'Леонид Гайдай')]")
-        self.GENRE_DIV = (By.XPATH, "//div/div[contains(text(), 'Жанр')]")
-        self.GENRE_VALUE_A = (By.TAG_NAME, "a")
+        self.NAVIGATOR_DIV = self.find((By.XPATH, '//*[@class="navigator"]/div'))
+        self.ELEMENTS_DIV = self.driver.find_elements(By.CSS_SELECTOR, "div.element")
+        self.YEAR_SPAN = self.find((By.CSS_SELECTOR, "span.year"))
+        self.INFO_DIV = self.find((By.CSS_SELECTOR, "div.info"))
+        self.DURATION_SPAN = self.find((By.XPATH, "//span[contains(text(), '153 мин')]"))
+        self.FILM_LINK = self.find((By.LINK_TEXT, "12 стульев"))
+        # self.COUNTRY_DIV = self.find((By.XPATH, "//div/div[contains(text(), 'Страна')]"))
+        # self.COUNTRY_VALUE_A = self.find((By.XPATH, "//a[contains(text(), 'СССР')]"))
+        # self.DIRECTOR_DIV = self.find((By.XPATH, "//div/div[contains(text(), 'Режиссер')]"))
+        # self.DIRECTOR_VALUE_A = self.find((By.XPATH, "//a[contains(text(), 'Леонид Гайдай')]"))
+        # self.GENRE_DIV = self.find((By.XPATH, "//div/div[contains(text(), 'Жанр')]"))
+        # self.GENRE_VALUE_A = self.find((By.TAG_NAME, "a"))
 
     # second test
     BEST_BUTTON = (By.XPATH, '//h1/a')
@@ -87,8 +87,8 @@ class CheckFilmPage(BasePage):
         select = Select(select_locator)
         select.select_by_visible_text(option_text)
 
-    def click_wide_find(self):
-        self.driver.find_element(*Locators.FIND_BUTTON).click()
+    # def click_wide_find(self):
+    #     self.driver.find_element(*Locators.FIND_BUTTON).click()
 
     def setup_filter(self):
         # выбор имени

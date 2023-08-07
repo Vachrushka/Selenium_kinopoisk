@@ -31,7 +31,7 @@ class TestSearchFilm:
 
         with allure.step('Проверка результата и полей карточки'):
             allure.attach(driver.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-            #check_film_page.init_elements_step_three()
+            check_film_page.init_elements_step_three()
             check_film_page.check_card_fields()
 
         with allure.step('Проверка страницы фильма'):
